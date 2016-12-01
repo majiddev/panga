@@ -67,12 +67,29 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-var server_port = process.env.OPENSHIFT_NODEJS_PORT || 8080
-var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
+//Setup ip adress and port
+var ipaddress ;
+
+function initIPAdress() {
+    var adr = process.env.OPENSHIFT_NODEJS_IP;
+    if (typeof adr === "undefined") {
+            //  Log errors on OpenShift but continue w/ 127.0.0.1 - this
+            //  allows us to run/test the app locally.
+            console.warn('No OPENSHIFT_NODEJS_IP var, using localhost');
+            adr = 'localhost';
+    }
+
+    ipaddress = adr;
+}
+
+var port      = process.env.OPENSHIFT_NODEJS_PORT || 8080;
+initIPAdress(); //Setup IP adress before app.listen()
+
 
 var httpServer = require('http').createServer(app);
-httpServer.listen(server_port, server_ip_address, function () {
-    console.log( "Listening on " + server_ip_address + ", port " + server_port );
+httpServer.listen(port, ipaddress, function() {
+        console.log('%s: Node server started on %s:%d ...',
+                        Date(Date.now() ), ipaddress, port);
 });
 httpServer.timeout = 36000000;
 
