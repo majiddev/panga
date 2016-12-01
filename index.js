@@ -372,37 +372,6 @@ app.get('/scrape', function(req, res){
 });
 
 
-function sendMail(res){
-    
-    var message = 'Email status\n';
-    
-    var nodemailer = require("nodemailer");
-    var smtpTransport = nodemailer.createTransport("SMTP",{
-        service: "Gmail",
-        auth: {
-            user: "mianmajid.dev@gmail.com",
-            pass: "dogood#1"
-        }
-    });
-    
-    var mailOptions={
-        from: 'Mian Majid <mianmajid.dev@gmail.com>',
-        to : 'majid.ali@nxb.com.pk',
-        subject : 'URL Collection Completed',
-        text : 'URL Collection Completed'
-     };
-     
-     smtpTransport.sendMail(mailOptions, function(error, response){
-     if(error){
-        console.log(error);
-     res.end("error");
-     }else{
-        console.log("Message sent: " + response.message);
-        res.end("sent");
-     }
-     });
-}
-
 function unsetErrorUrl(url){
     for (var key in errorUrls) {
         if (errorUrls[key] === url) {
