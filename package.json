@@ -10,11 +10,7 @@
 	"parse" : "1.9.1",
 	"parse-server" : "2.2.18",
 	"body-parser" : "1.15.2",
-	"nodemailer" : "0.7.1",
-	"simple-git" : "latest",
-	"nodegit" : "latest",
 	"path" : "latest",
-	"promisify-node" : "latest",
 	"fs-extra" : "latest"
   },
   "scripts": {
