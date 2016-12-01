@@ -67,10 +67,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-var port = process.env.PORT || 1337;
+var server_port = process.env.OPENSHIFT_NODEJS_PORT || 8080
+var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
+
 var httpServer = require('http').createServer(app);
-httpServer.listen(port, function() {
-    console.log('Crawler running on port ' + port + '.');
+httpServer.listen(server_port, server_ip_address, function () {
+    console.log( "Listening on " + server_ip_address + ", port " + server_port );
 });
 httpServer.timeout = 36000000;
 
